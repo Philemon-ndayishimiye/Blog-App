@@ -22,7 +22,7 @@ e.preventDefault()
 
  }
  
- let  savedData = JSON.parse(localStorage.getItem("user")) ||[];
+   let savedData = JSON.parse(localStorage.getItem("user")) ||[];
  if (!Array.isArray(savedData)) {
     savedData = [];
  }
@@ -53,6 +53,7 @@ e.preventDefault()
 
 //console.log(`${userName} and ${inputPassword} ${userRole}`)
 })
+
 
 
 
