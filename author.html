@@ -1,25 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard</title>
   </head>
   <body>
     <section>
       <h1>this is author</h1>
-      <form action="" id="post-form">
-        <label for="title">title</label><br />
-        <input type="text" id="title"required /><br>
-        <label for="content">content</label><br />
-        <input type="text" id="content" placeholder="content"required/><br>
-        <label for="image URL">image URL</label><br />
-        <input type="text" id="imageurl"required/><br>
-    
-        <button type="submit">save</button>
+
+      <form id="post-form">
+        <input id="title" type="text" placeholder="Title" required />
+        <textarea id="content" placeholder="Content" required></textarea>
+        <input id="imageurl" type="text" placeholder="Image URL (optional)" />
+        <button type="submit">Post</button>
       </form>
     </section>
-    <div id="post-container'"></div>
+    <div id="post-container"></div>
     <script src="post-page.js"></script>
   </body>
 </html>

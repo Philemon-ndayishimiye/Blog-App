@@ -1,46 +1,80 @@
-let postForm = document.getElementById("post-form");
-let title = document.getElementById("title");
-let content = document.getElementById("content");
-let imageURL = document.getElementById("imageurl");
-let postContainer = document.getElementById('post-container')
+const postForm = document.getElementById("post-form");
+const title = document.getElementById("title");
+const content = document.getElementById("content");
+const imageURL = document.getElementById("imageurl");
+const postContainer = document.getElementById("post-container");
 
-postForm.addEventListener("submit" , (e)=>{
-    e.preventDefault()
+const loggedInUser = localStorage.getItem("loggedInUser");
 
+postForm.addEventListener("submit", (e) => {
+  e.preventDefault();
 
+  const addedTitle = title.value.trim();
+  const addedContent = content.value.trim();
+  const addedImageURL = imageURL.value.trim();
 
-const addedtitle = title.value;
-const addedcontent = content.value;
-const addedimageurl = imageURL.value
+  if (!addedTitle || !addedContent || !loggedInUser) {
+    alert("Please fill in all fields and ensure you're logged in.");
+    return;
+  }
 
-const createdPost = {
-    
-    title:addedtitle,
-    content:addedcontent,
-    imageURL:addedimageurl
+  const createdPost = {
+    id: Date.now(),
+    title: addedTitle,
+    content: addedContent,
+    image: addedImageURL,
+    author: loggedInUser,
+    createdAt: new Date().toISOString(),
+  };
 
-}
-let postedData= JSON.parse(localStorage.getItem("posted"))|| []
-if(!Array.isArray(postedData)){
-    postedData=[];
-    
-}
-postedData.push(createdPost);
+  let posts = [];
+  try {
+    const storedPosts = JSON.parse(localStorage.getItem("posts"));
+    if (Array.isArray(storedPosts)) {
+      posts = storedPosts;
+    }
+  } catch (error) {
+    console.error("Error parsing posts from localStorage:", error);
+  }
 
-localStorage.setItem("posted",JSON.stringify(postedData))
+  posts.push(createdPost);
+  localStorage.setItem("posts", JSON.stringify(posts));
 
+  renderPost(createdPost);
+
+  postForm.reset();
 });
 
-function renderPost(post){
- const postDiv = document.createElement("div");
- postDiv.innerHTML = `h2${createdPost.title}
- <p>${createdPost.content}</p>`
-
-    postContainer.prepend(postDiv)
+function renderPost(post) {
+  const postDiv = document.createElement("div");
+  postDiv.className = "post";
+  postDiv.innerHTML = `
+        <h2>${post.title}</h2>
+        <p>${post.content}</p>
+        ${
+          post.image
+            ? `<img src="${post.image}" alt="Post Image" style="max-width: 100%; height: auto;" />`
+            : ""
+        }
+        <p><strong>Author:</strong> ${post.author}</p>
+        <p><small>Posted on ${new Date(
+          post.createdAt
+        ).toLocaleString()}</small></p>
+        <hr/>
+    `;
+  postContainer.prepend(postDiv);
 }
 
-
 window.addEventListener("DOMContentLoaded", () => {
-    const postedData = JSON.parse(localStorage.getItem("posted")) || [];
-    postedData.forEach(renderPost);
+  let posts = [];
+  try {
+    const storedPosts = JSON.parse(localStorage.getItem("posts"));
+    if (Array.isArray(storedPosts)) {
+      posts = storedPosts;
+    }
+  } catch (error) {
+    console.error("Error parsing posts from localStorage on load:", error);
+  }
+
+  posts.forEach(renderPost);
 });
