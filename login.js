@@ -30,9 +30,5 @@ loggInData.addEventListener("submit", (e) => {
    loginError.textContent ="Incorrect username or password"
   }
 
-//   if (userLogged) {
-//     window.location.href = "Dashboard.html";
-//   } else {
-//     alert("incorrect username or password");
-//   }
+
 });

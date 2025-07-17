@@ -9,19 +9,31 @@
 </head>
 
 <body>
+
+    <nav class="navbar">
+        <div class="logo">Blog App</div>
+        <ul class="nav-links">
+
+            <li><a href="Registration.html">Register</a></li>
+            <li><a href="Login.html">Login</a></li>
+        </ul>
+    </nav>
+
+
     <section>
         <h1>Login Form</h1>
         <form action="" id="login-form">
             <label for="user-name">User Name</label><br>
             <input type="text" id="login-name" placeholder="Enter username" required><br>
-            <label for="pasword">Password</label><br>
-            <input type="text" id="login-password" placeholder="Enter password" required><br>
+            <label for="password">Password</label><br>
+            <input type="password" id="login-password" placeholder="Enter password" required><br>
             <button type="submit">Login</button><br>
-            <P id="login-error"></P>
+            <p id="login-error"></p>
             <p>Don't you have account? <a href="./Registration.html">Register</a></p>
         </form>
     </section>
-<script src="/login.js"></script>
+
+    <script src="/login.js"></script>
 </body>
 
 </html>
