@@ -4,7 +4,15 @@ const content = document.getElementById("content");
 const imageURL = document.getElementById("imageurl");
 const postContainer = document.getElementById("post-container");
 
-const loggedInUser = localStorage.getItem("loggedInUser");
+
+const loggedInUser =JSON.parse( localStorage.getItem("loggedInUser"));
+
+const LoggedAuthor =loggedInUser.username;
+
+const AuthorName = document.querySelector('.lew');
+AuthorName.innerHTML = `Welcome back <span> ${LoggedAuthor}</span> `
+
+console.log(LoggedAuthor);
 
 postForm.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -23,7 +31,7 @@ postForm.addEventListener("submit", (e) => {
     title: addedTitle,
     content: addedContent,
     image: addedImageURL,
-    author: loggedInUser,
+    author: LoggedAuthor,
     createdAt: new Date().toISOString(),
   };
 
@@ -51,25 +59,23 @@ function renderPost(post) {
   postDiv.dataset.id = post.id;
 
   postDiv.innerHTML = `
+
     <h2>${post.title}</h2>
-    <p>${post.content}</p>
-    ${
-      post.image
-        ? `<img src="${post.image}" alt="Post Image" style="max-width:100%;height:auto;">`
-        : ""
-    }
+    <p><strong>Content:</strong>  ${post.content}</p>
+    <p> <strong>image Url:</strong>${post.image}</p>
     <p><strong>Author:</strong> ${post.author}</p>
-    <p><small>Posted on ${new Date(post.createdAt).toLocaleString()}</small></p>
+    <p><strong>Posted on : </strong> ${new Date(post.createdAt).toLocaleString()}</strong></p>
+    
     ${
-      post.author === loggedInUser
+      post.author === LoggedAuthor
         ? `<button class="edit-btn">Edit</button>
            <button class="delete-btn">Delete</button>`
         : ""
     }
-    <hr/>
+    
   `;
 
-  postContainer.prepend(postDiv);
+  postContainer.appendChild(postDiv);
 }
 
 postContainer.addEventListener("click", (e) => {
@@ -116,3 +122,11 @@ window.addEventListener("DOMContentLoaded", () => {
 
   posts.forEach(renderPost);
 });
+
+const logoutBtn = document.getElementById("btn-logout");
+
+logoutBtn.addEventListener('click', ()=>{
+
+  window.location.href='login.html';
+  localStorage.removeItem('loggedInUser')
+})
