@@ -1,6 +1,7 @@
 const loggInData = document.getElementById("login-form");
 const loggedName = document.getElementById("login-name");
 const loggedPassword = document.getElementById("login-password");
+const loginError = document.getElementById("login-error");
 
 loggInData.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -26,12 +27,12 @@ loggInData.addEventListener("submit", (e) => {
       window.location.href = "author.html";
     }
   } else {
-    alert("incorrect username or password");
+   loginError.textContent ="Incorrect username or password"
   }
 
-  if (userLogged) {
-    window.location.href = "Dashboard.html";
-  } else {
-    alert("incorrect username or password");
-  }
+//   if (userLogged) {
+//     window.location.href = "Dashboard.html";
+//   } else {
+//     alert("incorrect username or password");
+//   }
 });
