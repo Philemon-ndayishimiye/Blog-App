@@ -122,3 +122,11 @@ window.addEventListener("DOMContentLoaded", () => {
 
   posts.forEach(renderPost);
 });
+
+const logoutBtn = document.getElementById("btn-logout");
+
+logoutBtn.addEventListener('click', ()=>{
+
+  window.location.href='login.html';
+  localStorage.removeItem('loggedInUser')
+})
